@@ -25,7 +25,7 @@ Game_MainWindow::Game_MainWindow(QWidget *parent) :
     ui->setupUi(this);
     setWindowTitle("3D Tetris-master");
 
-    if(!fist_cascade.load( "/Users/liqi/Desktop/projet_game/haarcascade_fist.xml" ))
+    if(!fist_cascade.load( "../projet_game_source/fist_v3.xml" ))
     {
         cerr<<"Error loading haarcascade"<<endl;
         exit(0);
@@ -46,7 +46,7 @@ Game_MainWindow::Game_MainWindow(QWidget *parent) :
     createMenu();
 
     timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(capFarme()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(capFrame()));
 
     timer2 = new QTimer(this);
     connect(timer2, SIGNAL(timeout()), this, SLOT(updateScore()));
@@ -79,7 +79,7 @@ void Game_MainWindow::game_begin(){
     timer->start();
 }
 
-void Game_MainWindow::capFarme(){
+void Game_MainWindow::capFrame(){
 
     int distance=100;
     Mat frame,frame_gray;
@@ -103,7 +103,7 @@ void Game_MainWindow::capFarme(){
 
     if (fists.size()==2)
     {
-        if (abs(fists[0].x-fists[1].x)< 200) {
+        if (abs(fists[0].x-fists[1].x)< 100) {
             m_viewer->game->rotateCW();
             m_viewer->update();
             cerr<<"Change"<<endl;
@@ -131,7 +131,7 @@ void Game_MainWindow::capFarme(){
                 m_viewer->update();
             }
         }
-        if (fists[0].y> 500 and fists[1].y < 500){
+        if (fists[0].y> 365 and fists[1].y > 365){
             cerr << "quickly"<<endl;
             m_viewer->game->drop();
             m_viewer->update();
@@ -173,11 +173,6 @@ void Game_MainWindow::keyPressEvent(QKeyEvent * event){
     }
     case Qt::Key_Up: {
         m_viewer->game->rotateCW();
-        m_viewer->update();
-        break;
-    }
-    case Qt::Key_Down: {
-        m_viewer->game->rotateCCW();
         m_viewer->update();
         break;
     }

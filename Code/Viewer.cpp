@@ -44,12 +44,12 @@ void Viewer::initializeGL() {
 
     glClearColor(0.1, 0.1, 0.1, 0.0);
 
-    if (!mProgram.addShaderFromSourceFile(QGLShader::Vertex, "/Users/liqi/Desktop/projet_game/shader.vert")) {
+    if (!mProgram.addShaderFromSourceFile(QGLShader::Vertex, "../projet_game_source/shader.vert")) {
         std::cerr << "Cannot load vertex shader." << std::endl;
         exit(0);
     }
 
-    if (!mProgram.addShaderFromSourceFile(QGLShader::Fragment, "/Users/liqi/Desktop/projet_game/shader.frag")) {
+    if (!mProgram.addShaderFromSourceFile(QGLShader::Fragment, "../projet_game_source/shader.frag")) {
         std::cerr << "Cannot load fragment shader." << std::endl;
         exit(0);
     }
@@ -182,25 +182,25 @@ void Viewer::paintGL() {
             mProgram.setUniformValue(colorLocation, 0.0f, 0.0f, 0.0f);
             break;
         case 0:
-            mProgram.setUniformValue(colorLocation, 0.0f, 0.0f, 1.0f);
+            mProgram.setUniformValue(colorLocation, 0.89f, 0.65f, 0.95f);
             break;
         case 1:
-            mProgram.setUniformValue(colorLocation, 0.0f, 1.0f, 0.0f);
+            mProgram.setUniformValue(colorLocation, 0.95f, 0.65f, 0.93f);
             break;
         case 2:
-            mProgram.setUniformValue(colorLocation, 0.0f, 1.0f, 1.0f);
+            mProgram.setUniformValue(colorLocation, 0.65f, 0.78f, 0.95f);
             break;
         case 3:
-            mProgram.setUniformValue(colorLocation, 1.0f, 0.0f, 0.0f);
+            mProgram.setUniformValue(colorLocation, 0.72f, 0.97f, 0.78f);
             break;
         case 4:
-            mProgram.setUniformValue(colorLocation, 1.0f, 0.0f, 1.0f);
+            mProgram.setUniformValue(colorLocation, 0.97f, 0.99f, 0.59f);
             break;
         case 5:
-            mProgram.setUniformValue(colorLocation, 1.0f, 1.0f, 0.0f);
+            mProgram.setUniformValue(colorLocation, 0.98f, 0.78f, 0.51f);
             break;
         case 6:
-            mProgram.setUniformValue(colorLocation, 1.0f, 1.0f, 1.0f);
+            mProgram.setUniformValue(colorLocation, 0.96f, 0.52f, 0.58f);
             break;
         default:
             break;
@@ -310,6 +310,7 @@ void Viewer::rotate() {
         rotatez += rotatevalue;
     }
 }
+
 void Viewer::mousePressEvent(QMouseEvent *event){
     int x = event->x();
     int y = event->y();

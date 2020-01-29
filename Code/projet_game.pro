@@ -38,16 +38,30 @@ HEADERS += \
 FORMS += \
         game_mainwindow.ui
 
-INCLUDEPATH += /usr/local/include
-INCLUDEPATH += .
+#INCLUDEPATH += /usr/local/include
+INCLUDEPATH +=$$(OPENCV_DIR)\..\..\include
+INCLUDEPATH +=.
 
-LIBS += -L/usr/local/lib \
-    -lopencv_core \
-    -lopencv_highgui \
-    -lopencv_imgproc \
-    -lopencv_features2d \
-    -lopencv_calib3d \
-    -lopencv_objdetect
+LIBS += -L$$(OPENCV_DIR)\lib \
+    -lopencv_core2413 \
+    -lopencv_highgui2413 \
+    -lopencv_imgproc2413 \
+    -lopencv_features2d2413 \
+    -lopencv_calib3d2413 \
+    -lopencv_objdetect2413
+
+# ajout des libs au linker
+win32 {
+    win32-msvc* {
+        LIBS     += opengl32.lib glu32.lib
+    } else {
+        LIBS     += -lopengl32 -lglu32
+    }
+}
+else {
+        LIBS     += -lGL -lGLU
+}
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

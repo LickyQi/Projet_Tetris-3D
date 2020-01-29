@@ -100,17 +100,6 @@ Piece Piece::rotateCW() const
 		margins_[3], margins_[0], margins_[1], margins_[2]);
 }
 
-Piece Piece::rotateCCW() const
-{
-  char ndesc[16];
-  getColumn(3, (char*)ndesc);
-  getColumn(2, (char*)(ndesc+4));
-  getColumn(1, (char*)(ndesc+8));
-  getColumn(0, (char*)(ndesc+12));
-
-  return Piece(ndesc, cindex_,
-		margins_[1], margins_[2], margins_[3], margins_[0]);
-}
 
 bool Piece::isOn(int row, int col) const
 {
@@ -215,10 +204,6 @@ void Game::removeRow(int y)
 
 int Game::collapse() 
 {
-  // This method is implemented in a brain-dead way.  Repeatedly
-  // walk up from the bottom of the well, removing the first full 
-  // row, stopping when there are no more full rows.  It could be
-  // made much faster.  Sue me.
 
   int removed = 0;
 
@@ -301,12 +286,6 @@ int Game::tick()
 
 bool Game::moveLeft()
 {
-  // Most of the piece movement methods work like this:
-  //  1. remove the piece from the board.
-  // 	2. does the piece fit in its new configuration?
-  //	3a. if yes, add it to the board in its new configuration.
-  //	3b. if no, put it back where it was.
-  // Simple and sort of silly, but satisfactory.
 
   int nx = px_ - 1;
 
@@ -373,16 +352,4 @@ bool Game::rotateCW()
   }
 }
 
-bool Game::rotateCCW() 
-{
-  removePiece(piece_, px_, py_);
-  Piece npiece = piece_.rotateCCW();
-  if(doesPieceFit(npiece, px_, py_)) {
-    placePiece(npiece, px_, py_);
-    piece_ = npiece;
-    return true;
-  } else {
-    placePiece(piece_, px_, py_);
-    return false;
-  }
-}
+
